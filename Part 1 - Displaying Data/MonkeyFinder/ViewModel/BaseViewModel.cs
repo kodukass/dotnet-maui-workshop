@@ -9,7 +9,7 @@ public partial class BaseViewModel : ObservableObject//: INotifyPropertyChanged
     }
 
     [ObservableProperty]
-   // [AlsoNotifyChangeFor(nameof(IsNotBusy))]
+    //[AlsoNotifyChangeFor(nameof(IsNotBusy))]
     bool isBusy;
 
     [ObservableProperty]
