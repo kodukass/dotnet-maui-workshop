@@ -11,7 +11,7 @@ public partial class MonkeysViewModel : BaseViewModel
     public Command GetMonkeysCommand { get; }
     public Command GetClosestMonkeyCommand { get; }
     public Command GoToDetailsCommand { get; }
-    public MonkeysViewModel(MonkeyService monkeyService, IConnectivity connectivity, IGeolocation geolocation, Monkey monkey)
+    public MonkeysViewModel(MonkeyService monkeyService, IConnectivity connectivity, IGeolocation geolocation)//, Monkey monkey)
     {
         Title = "Monkey Finder";
         this.monkeyService = monkeyService;
@@ -19,7 +19,7 @@ public partial class MonkeysViewModel : BaseViewModel
         GetClosestMonkeyCommand = new Command(async () => await GetClosestMonkeyAsync());
         this.connectivity = connectivity;
         this.geolocation = geolocation;
-        GoToDetailsCommand = new Command(async () => await GoToDetailsAsync(monkey));
+        //GoToDetailsCommand = new Command(async () => await GoToDetailsAsync(monkey));
     }
 
     [ObservableProperty]
