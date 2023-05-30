@@ -4,7 +4,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
              x:DataType="viewmodel:MonkeysViewModel"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
              Title="{Binding Title}"
+             ios:Page.UseSafeArea="True"
              x:Class="MonkeyFinder.View.MainPage">
 
     <!--<VerticalStackLayout Spacing="20" Padding="20">
@@ -53,15 +55,39 @@
         </CollectionView.ItemTemplate>
     </CollectionView>-->
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="REFRESH"/>
+    </ContentPage.ToolbarItems>
+
     <Grid ColumnDefinitions="*,*"
           ColumnSpacing="5"
           RowDefinitions="*,Auto"
           RowSpacing="0">
 
-        <CollectionView BackgroundColor="Transparent"
+        <RefreshView Grid.ColumnSpan="2"
+                     Command="{Binding GetMonkeysCommand}"
+                     IsRefreshing="{Binding IsRefreshing}">
+            <CollectionView BackgroundColor="Transparent"
                         Grid.ColumnSpan="2"
                         ItemsSource="{Binding Monkeys}"
                         SelectionMode="None">
+                <!--EmptyView="Empty"
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical"
+                                     Span="{OnIdiom Desktop=1, Default=3}"/>
+                </CollectionView.ItemsLayout>-->
+                <CollectionView.EmptyView>
+                    <StackLayout VerticalOptions="Center"
+                                 HorizontalOptions="Center"
+                                 WidthRequest="200"
+                                 HeightRequest="200">
+                        <Image Source="nodata.png"
+                               HorizontalOptions="CenterAndExpand"
+                               VerticalOptions="CenterAndExpand"
+                               Aspect="AspectFill"/>
+
+                    </StackLayout>
+                </CollectionView.EmptyView>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Monkey">
                     <Grid Padding="10">
@@ -97,6 +123,8 @@
             </CollectionView.ItemTemplate>
             
         </CollectionView>
+        </RefreshView>
+        
 
         <Button Text="Get Monkeys"
                 Style="{StaticResource ButtonOutline}"

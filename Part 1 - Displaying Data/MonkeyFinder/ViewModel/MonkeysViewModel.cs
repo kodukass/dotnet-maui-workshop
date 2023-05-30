@@ -21,6 +21,10 @@ public partial class MonkeysViewModel : BaseViewModel
         this.geolocation = geolocation;
         //GoToDetailsCommand = new Command(async () => await GoToDetailsAsync(monkey));
     }
+
+    [ObservableProperty]
+    bool isRefreshing;
+
     //[ICommand]
     async Task GetClosestMonkeyAsync()
     {
@@ -106,6 +110,7 @@ public partial class MonkeysViewModel : BaseViewModel
         finally
         {
             IsBusy = false;
+            IsRefreshing = false;
         }
     }
 }
