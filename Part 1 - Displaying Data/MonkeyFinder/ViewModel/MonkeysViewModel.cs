@@ -8,15 +8,15 @@ public partial class MonkeysViewModel : BaseViewModel
 
     IConnectivity connectivity;
     IGeolocation geolocation;
-    public Command GetMonkeysCommand { get; }
-    public Command GetClosestMonkeyCommand { get; }
-    public Command GoToDetailsCommand { get; }
-    public MonkeysViewModel(MonkeyService monkeyService, IConnectivity connectivity, IGeolocation geolocation)//, Monkey monkey)
+    //public Command GetMonkeysCommand { get; }
+    //public Command GetClosestMonkeyCommand { get; }
+    //public Command GoToDetailsCommand { get; }
+    public MonkeysViewModel(MonkeyService monkeyService, IConnectivity connectivity, IGeolocation geolocation)
     {
         Title = "Monkey Finder";
         this.monkeyService = monkeyService;
-        GetMonkeysCommand = new Command(async () => await GetMonkeysAsync());
-        GetClosestMonkeyCommand = new Command(async () => await GetClosestMonkeyAsync());
+        //GetMonkeysCommand = new Command(async () => await GetMonkeysAsync());
+        //GetClosestMonkeyCommand = new Command(async () => await GetClosestMonkeyAsync());
         this.connectivity = connectivity;
         this.geolocation = geolocation;
         //GoToDetailsCommand = new Command(async () => await GoToDetailsAsync(monkey));
@@ -25,7 +25,7 @@ public partial class MonkeysViewModel : BaseViewModel
     [ObservableProperty]
     bool isRefreshing;
 
-    //[ICommand]
+    [RelayCommand]
     async Task GetClosestMonkeyAsync()
     {
         if(IsBusy || Monkeys.Count == 0) 
@@ -66,7 +66,7 @@ public partial class MonkeysViewModel : BaseViewModel
                 $"Unable to get closest monkeys: {ex.Message}", "ok");
         }
     }
-    //[ICommand]
+    [RelayCommand]
     async Task GoToDetailsAsync(Monkey monkey)
     {
         if(monkey is null) 
@@ -78,7 +78,7 @@ public partial class MonkeysViewModel : BaseViewModel
                 {"Monkey", monkey}
             });
     }
-    //[ICommand]
+    [RelayCommand]
     async Task GetMonkeysAsync()
     {
         if(IsBusy) 
